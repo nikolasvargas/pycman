@@ -4,22 +4,24 @@ from pygame import Surface
 from pygame.locals import K_ESCAPE, KEYDOWN, QUIT
 from typing import Tuple
 import configparser
-import pygame
+import pygame as _PYG
 
+
+_PYG.init()
 
 _CFG = configparser.ConfigParser()
 _CFG.read('game_config.ini')
 
 SCREEN_WIDTH = int(_CFG['SCREEN']['WIDTH'])
 SCREEN_HEIGHT = int(_CFG['SCREEN']['HEIGHT'])
+
 WINDOW_SIZE: Tuple[int] = (SCREEN_WIDTH, SCREEN_HEIGHT)
+WINDOW: Surface = _PYG.display.set_mode(WINDOW_SIZE)
 
-pygame.init()
-
-WINDOW: Surface = pygame.display.set_mode(WINDOW_SIZE)
+FPS = int(_CFG['SCREEN']['FRAMES'])
 
 
-def run():
+def run() -> None:
     running: bool = True
 
     while running:
@@ -27,16 +29,16 @@ def run():
 
         pacman(WINDOW, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-        pygame.display.update()
+        _PYG.display.update()
 
-        for event in pygame.event.get():
+        for event in _PYG.event.get():
             escape: bool = event.type == KEYDOWN and event.key == K_ESCAPE
             exit_key: bool = event.type == QUIT or escape
 
             if exit_key:
                 running = False
 
-    pygame.quit()
+    _PYG.quit()
 
 
 if __name__ == '__main__':
