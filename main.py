@@ -1,5 +1,5 @@
 from assets.colors import COLOR
-from chars import pacman
+from chars import Pacman
 from pygame import Surface
 from pygame.locals import K_ESCAPE, KEYDOWN, QUIT
 from typing import Tuple
@@ -27,7 +27,7 @@ def run() -> None:
     while running:
         WINDOW.fill(COLOR['DARK'])
 
-        pacman(WINDOW, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        Pacman(WINDOW, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
         _PYG.display.update()
 
